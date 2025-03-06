@@ -13058,6 +13058,7 @@ CDocument.prototype.Document_Undo = function(Options)
 			this.UpdateAfterUndoRedo(changes);
 			this.FinalizeUndoRedoAction();
 			this.sendEvent("asc_onUndoRedo");
+			this.Api.sync_UndoCallBack();
 		}
 	}
 
@@ -13080,6 +13081,7 @@ CDocument.prototype.Document_Redo = function()
 		this.UpdateAfterUndoRedo(changes);
 		this.FinalizeUndoRedoAction();
 		this.sendEvent("asc_onUndoRedo");
+		this.Api.sync_RndoCallBack();
 	}
 
 	if (this.IsFillingFormMode())

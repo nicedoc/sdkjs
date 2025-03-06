@@ -15069,6 +15069,9 @@ background-repeat: no-repeat;\
 	asc_docs_api.prototype["asc_hideDeletedTextInVersionHistory"]     = asc_docs_api.prototype.asc_hideDeletedTextInVersionHistory;
 
 	asc_docs_api.prototype["asc_getCoHistory"] = asc_docs_api.prototype.asc_getCoHistory;
+	asc_docs_api.prototype['sync_UndoCallBack']                       = asc_docs_api.prototype.sync_UndoCallBack;
+	asc_docs_api.prototype['sync_RedoCallBack']                       = asc_docs_api.prototype.sync_RedoCallBack;
+
 
 	CDocInfoProp.prototype['get_PageCount']             = CDocInfoProp.prototype.get_PageCount;
 	CDocInfoProp.prototype['put_PageCount']             = CDocInfoProp.prototype.put_PageCount;
