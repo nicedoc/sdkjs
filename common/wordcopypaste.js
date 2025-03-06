@@ -430,8 +430,11 @@ CopyProcessor.prototype =
 			oTarget.wrapChild(new CopyElement("b"));
         if (true == Value.Italic)
 			oTarget.wrapChild(new CopyElement("i"));
-		if (true == Value.Underline)
-			oTarget.wrapChild(new CopyElement("u"));
+		if (true == Value.Underline || 11 != Value.Underline) {
+			var u = new CopyElement("u");
+			u.oAttributes['data-underline'] = Value.Underline;
+			oTarget.wrapChild(u);
+		}
         if (true == Value.Strikeout)
 			oTarget.wrapChild(new CopyElement("s"));
 		 if (true == Value.DStrikeout)
