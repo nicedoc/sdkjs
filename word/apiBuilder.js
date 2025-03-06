@@ -13645,9 +13645,9 @@
 	 * @return {ApiTextPr} - this text properties.
 	 * @see office-js-api/Examples/{Editor}/ApiTextPr/Methods/SetShd.js
 	 */
-	ApiTextPr.prototype.SetShd = function(sType, r, g, b)
+	ApiTextPr.prototype.SetShd = function(sType, r, g, b, isAuto)
 	{
-		this.TextPr.Shd = private_GetShd(sType, r, g, b, false);
+		this.TextPr.Shd = private_GetShd(sType, r, g, b, isAuto);
 		this.private_OnChange();
 		return this;
 	};
