@@ -13323,8 +13323,9 @@ CTextPr.prototype.Set_FromObject = function(TextPr, isUndefinedToNull)
 	this.Italic    = CheckUndefinedToNull(isUndefinedToNull, TextPr.Italic);
 	this.Strikeout = CheckUndefinedToNull(isUndefinedToNull, TextPr.Strikeout);
 
-	
-    this.SetUnderline(TextPr.Underline);
+	if (undefined != TextPr.Underline) {
+		this.SetUnderline(TextPr.Underline);
+	}
     this.Em        = CheckUndefinedToNull(isUndefinedToNull, TextPr.Em);
 
 	if (undefined !== TextPr.FontFamily)
