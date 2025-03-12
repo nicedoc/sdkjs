@@ -1742,9 +1742,23 @@ CDocumentContent.prototype.Get_PageBounds = function(CurPage, Height, bForceChec
 				}
 				else if (undefined !== Height && ObjBounds.Top < this.Y + Height)
 				{
-					if (ObjBounds.Bottom >= this.Y + Height)
-						Bounds.Bottom = this.Y + Height;
-					else if (ObjBounds.Bottom > Bounds.Bottom)
+					if (ObjBounds.Bottom >= this.Y + Height) {
+						var tempFlag = 0;
+						// 当图片是浮动图片时
+						if (Obj.wrappingType === WRAPPING_TYPE_NONE && Obj.DrawingType === drawing_Anchor) {
+							var Parent = this.GetParent();
+							// 若处于单元格中，且单元格的垂直对齐方式为底部或居中时，不更新底部位置
+							if (Parent && Parent.IsCell && Parent.IsCell() && Parent.Get_CompiledPr) {
+								var compiledPr = Parent.Get_CompiledPr();
+								if (compiledPr && (compiledPr.VAlign === vertalignjc_Bottom || compiledPr.VAlign === vertalignjc_Center)) {
+									tempFlag = 1;
+								}
+							}
+						}
+						if (tempFlag === 0) {
+							Bounds.Bottom = this.Y + Height;
+						}
+					} else if (ObjBounds.Bottom > Bounds.Bottom)
 						Bounds.Bottom = ObjBounds.Bottom;
 				}
 			}
