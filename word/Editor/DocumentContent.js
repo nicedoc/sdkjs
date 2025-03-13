@@ -1742,23 +1742,21 @@ CDocumentContent.prototype.Get_PageBounds = function(CurPage, Height, bForceChec
 				}
 				else if (undefined !== Height && ObjBounds.Top < this.Y + Height)
 				{
-					if (ObjBounds.Bottom >= this.Y + Height) {
-						var tempFlag = 0;
-						// 当图片是浮动图片时
-						if (Obj.wrappingType === WRAPPING_TYPE_NONE && Obj.DrawingType === drawing_Anchor) {
-							var Parent = this.GetParent();
-							// 若处于单元格中，且单元格的垂直对齐方式为底部或居中时，不更新底部位置
-							if (Parent && Parent.IsCell && Parent.IsCell() && Parent.Get_CompiledPr) {
-								var compiledPr = Parent.Get_CompiledPr();
-								if (compiledPr && (compiledPr.VAlign === vertalignjc_Bottom || compiledPr.VAlign === vertalignjc_Center)) {
-									tempFlag = 1;
-								}
+					// 当图片是浮动图片，且有特殊标志时
+					if (Obj.wrappingType === WRAPPING_TYPE_NONE && Obj.DrawingType === drawing_Anchor && Obj.docPr && Obj.docPr.title && Obj.docPr.title.includes('feature')) {
+						var Parent = this.GetParent();
+						// 若处于单元格中，且单元格的垂直对齐方式为底部或居中时，不更新底部位置
+						if (Parent && Parent.IsCell && Parent.IsCell() && Parent.Get_CompiledPr) {
+							var compiledPr = Parent.Get_CompiledPr();
+							if (compiledPr && (compiledPr.VAlign === vertalignjc_Bottom || compiledPr.VAlign === vertalignjc_Center)) {
+								continue;
 							}
 						}
-						if (tempFlag === 0) {
-							Bounds.Bottom = this.Y + Height;
-						}
-					} else if (ObjBounds.Bottom > Bounds.Bottom)
+					}
+
+					if (ObjBounds.Bottom >= this.Y + Height)
+						Bounds.Bottom = this.Y + Height;
+					else if (ObjBounds.Bottom > Bounds.Bottom)
 						Bounds.Bottom = ObjBounds.Bottom;
 				}
 			}
@@ -1773,8 +1771,10 @@ CDocumentContent.prototype.Get_PageBounds = function(CurPage, Height, bForceChec
 			if (type_Table === Element.GetType() && true != Element.Is_Inline() && 0 <= ElementPageIndex && ElementPageIndex < Element.Get_PagesCount())
 			{
 				var TableBounds = Element.Get_PageBounds(ElementPageIndex);
-				if (TableBounds.Bottom > Bounds.Bottom)
+				if (TableBounds.Bottom > Bounds.Bottom) {
+					console.log('============== 3')
 					Bounds.Bottom = TableBounds.Bottom;
+				}
 			}
 		}
 	}
