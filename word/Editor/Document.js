@@ -13081,7 +13081,7 @@ CDocument.prototype.Document_Redo = function()
 		this.UpdateAfterUndoRedo(changes);
 		this.FinalizeUndoRedoAction();
 		this.sendEvent("asc_onUndoRedo");
-		this.Api.sync_RndoCallBack();
+		this.Api.sync_RedoCallBack();
 	}
 
 	if (this.IsFillingFormMode())
