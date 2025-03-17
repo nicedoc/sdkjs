@@ -1743,7 +1743,7 @@ CDocumentContent.prototype.Get_PageBounds = function(CurPage, Height, bForceChec
 				else if (undefined !== Height && ObjBounds.Top < this.Y + Height)
 				{
 					// 当图片是浮动图片，且有特殊标志时
-					if (Obj.wrappingType === WRAPPING_TYPE_NONE && Obj.DrawingType === drawing_Anchor && Obj.docPr && Obj.docPr.title && Obj.docPr.title.includes('feature')) {
+					if (Obj.wrappingType === WRAPPING_TYPE_NONE && Obj.DrawingType === drawing_Anchor && Obj.docPr && Obj.docPr.title && Obj.docPr.title.includes('noheight')) {
 						var Parent = this.GetParent();
 						// 若处于单元格中，且单元格的垂直对齐方式为底部或居中时，不更新底部位置
 						if (Parent && Parent.IsCell && Parent.IsCell() && Parent.Get_CompiledPr) {
@@ -1772,7 +1772,6 @@ CDocumentContent.prototype.Get_PageBounds = function(CurPage, Height, bForceChec
 			{
 				var TableBounds = Element.Get_PageBounds(ElementPageIndex);
 				if (TableBounds.Bottom > Bounds.Bottom) {
-					console.log('============== 3')
 					Bounds.Bottom = TableBounds.Bottom;
 				}
 			}
